@@ -1,12 +1,18 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import ProjectSummary from './ProjectSummary';
 
-function ProjectList(props) {
+function ProjectList({projects}) {
+
+    if((JSON.stringify(projects)!=="{}")){
+        var mapProjectSummary=projects.map((project, key) => {
+            return <ProjectSummary project={project} key={project.id}/>
+        })
+    }
+
     return (
-        <div>
-            <ProjectSummary/>
-            <ProjectSummary/>
-        </div>
+        <Fragment>
+            {mapProjectSummary}
+        </Fragment>
     );
 }
 
