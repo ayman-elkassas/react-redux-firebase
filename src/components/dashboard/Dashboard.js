@@ -5,11 +5,19 @@ import Notifications from './Notifications'
 import {connect} from 'react-redux'
 import {firestoreConnect} from 'react-redux-firebase'
 import {compose} from 'redux'
+import firebase from 'firebase/app'
 
 class Dashboard extends Component {
     render() {
         
         const {projects} =this.props
+        // console.log(auth)
+        
+        // auth().onAuthStateChanged((user)=>{
+        //     if(!user){
+        //         return <Redirect to="/signin"/>
+        //     }
+        // })
 
         return (
             <div className="dashboard container">
@@ -30,7 +38,9 @@ const mapStateToProps=(state)=>{
     if(JSON.stringify(state.firestore.ordered)!=="{}"){
         return{
             //*project is projectReducer mapped in 
-            projects:state.firestore.ordered.projects
+            projects:state.firestore.ordered.projects,
+            //*you can fetch another state from another reducer
+            auth:firebase.auth().onAuthStateChanged
         }
     }else{
         return {projects:state.project.projects}
